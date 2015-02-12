@@ -8,23 +8,24 @@
         <script type="text/javascript" src="threejs-r70/three.min.js"></script>
         <script type="text/javascript" src="physijs/physi.js"></script>
 
+        <link rel="stylesheet" href="main.css" type="text/css" />
         <link rel="stylesheet" href="semanticui-1.8.1/semantic.min.css" type="text/css" />
         <link rel="stylesheet" href="semanticui-1.8.1/components/sidebar.min.css" type="text/css" />
     </head>
-    <body style="margin: 0; overflow: hidden;">
+    <body class="main-body">
         <div class="ui left vertical inverted very wide sidebar" id="application-sidebar">
             <div class="ui inverted segment">
                 <div class="ui inverted form">
                     <div class="field">
                         <label>Code Editor:</label>
-                        <textarea style="min-height: 40em !important; max-height: 75em !important;"></textarea>
+                        <textarea class="application-editor"></textarea>
                     </div>
                     <div class="ui inverted blue button">Run</div>
                 </div>
             </div>
         </div>
-        <div style="position: absolute; top:20px; left:20px; width: 130px;" class="ui inverted blue button" id="toggle-sidebar">Toggle Editor</div>
-        <div style="position: absolute; top:70px; left:20px; width: 130px;" class="ui inverted button">Reset World</div>
+        <div class="sidebar-button ui inverted blue button" id="toggle-sidebar">Toggle Editor</div>
+        <div class="reset-button ui inverted button">Reset World</div>
         <script type="text/javascript" src="main.js"></script>
     </body>
 </html>

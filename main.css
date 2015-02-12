@@ -1,0 +1,23 @@
+.main-body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.application-editor {
+    min-height: 40em !important;
+    max-height: 75em !important;
+}
+
+.sidebar-button {
+    position: absolute;
+    top:20px;
+    left:20px;
+    width: 130px;
+}
+
+.reset-button {
+    position: absolute;
+    top:70px;
+    left:20px;
+    width: 130px;
+}
