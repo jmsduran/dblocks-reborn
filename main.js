@@ -3,12 +3,12 @@
 Physijs.scripts.worker = "/physijs/physijs_worker.js";
 Physijs.scripts.ammo = "/ammojs/ammo.js";
 
-var initScene, render, renderer, scene, camera, box;
+var initScene, render, renderer, scene, camera, box, resize;
 
 initScene = function() {
     renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById("viewport").appendChild(renderer.domElement);
+    document.body.appendChild(renderer.domElement);
 
     scene = new Physijs.Scene;
 
@@ -38,4 +38,13 @@ render = function() {
     requestAnimationFrame(render);
 };
 
+resize = function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+};
+
 window.onload = initScene();
+
+window.addEventListener("resize", resize, false);
