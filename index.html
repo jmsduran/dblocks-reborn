@@ -6,6 +6,7 @@
         <script type="text/javascript" src="semanticui-1.8.1/semantic.min.js"></script>
         <script type="text/javascript" src="semanticui-1.8.1/components/sidebar.min.js"></script>
         <script type="text/javascript" src="threejs-r70/three.min.js"></script>
+        <script type="text/javascript" src="threejs-r70/OrbitControls.js"></script>
         <script type="text/javascript" src="physijs/physi.js"></script>
 
         <link rel="stylesheet" href="main.css" type="text/css" />
@@ -13,7 +14,7 @@
         <link rel="stylesheet" href="semanticui-1.8.1/components/sidebar.min.css" type="text/css" />
     </head>
     <body class="main-body">
-        <div class="ui left vertical inverted very wide sidebar" id="application-sidebar">
+        <div class="ui left vertical invertedvery wide sidebar" id="application-sidebar">
             <div class="ui inverted segment">
                 <div class="ui inverted form">
                     <div class="field">
@@ -25,7 +26,8 @@
             </div>
         </div>
         <div class="sidebar-button ui inverted blue button" id="toggle-sidebar">Toggle Editor</div>
-        <div class="reset-button ui inverted button">Reset World</div>
+        <div class="reset-button ui inverted red button">Reset World</div>
+        <div id="viewport"></div>
         <script type="text/javascript" src="main.js"></script>
     </body>
 </html>

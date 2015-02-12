@@ -1,6 +1,7 @@
 .main-body {
     margin: 0;
     overflow: hidden;
+    background-color: #FFFFFF;
 }
 
 .application-editor {
