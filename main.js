@@ -45,6 +45,10 @@ resize = function() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 };
 
+$("#toggle-sidebar").click(function(){
+    $("#application-sidebar").sidebar("toggle");
+});
+
 window.onload = initScene();
 
 window.addEventListener("resize", resize, false);
