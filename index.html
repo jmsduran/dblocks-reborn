@@ -13,13 +13,24 @@
         <link rel="stylesheet" href="semanticui-1.8.1/semantic.min.css" type="text/css" />
         <link rel="stylesheet" href="semanticui-1.8.1/components/sidebar.min.css" type="text/css" />
     </head>
-    <body class="main-body">
+    <body>
         <div class="ui left vertical invertedvery wide sidebar" id="application-sidebar">
             <div class="ui inverted segment">
                 <div class="ui inverted form">
                     <div class="field">
                         <label>Code Editor:</label>
-                        <textarea class="application-editor"></textarea>
+                        <textarea id="application-editor">
+                            blocks = [
+                                {
+                                    pos: {x: 0, y: 20, z: 0},
+                                    rot: {
+                                        x: Math.random() * Math.PI,
+                                        y: Math.random() * Math.PI,
+                                        z: Math.random() * Math.PI
+                                    }
+                                }
+                            ];
+                        </textarea>
                     </div>
                     <div id="run-button" class="ui inverted blue button">Run</div>
                 </div>

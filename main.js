@@ -5,31 +5,13 @@ Physijs.scripts.ammo = "/ammojs/ammo.js";
 
 var renderer, scene, camera, controls;
 
-var blocks = [
-    {
-        pos: {x: 0, y: 10, z: 0},
-        rot: {
-            x: Math.random() * Math.PI,
-            y: Math.random() * Math.PI,
-            z: Math.random() * Math.PI
-        }
-    },
-    {
-        pos: {x: 0, y: 20, z: 0},
-        rot: {
-            x: Math.random() * Math.PI,
-            y: Math.random() * Math.PI,
-            z: Math.random() * Math.PI
-        }
-    }
-];
-
+var blocks = [];
 var pshapes = [];
 
 var initScene = function() {
     renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor( 0xffffff, 1);
+    renderer.setClearColor(0xFFFFFF, 1);
     renderer.shadowMapEnabled = true;
     renderer.shadowMapSoft = true;
     document.getElementById("viewport").appendChild(renderer.domElement);
@@ -66,22 +48,23 @@ var initScene = function() {
     controls = new THREE.OrbitControls(camera, renderer.domElement);
 
     var ground = new Physijs.BoxMesh(
-        new THREE.CubeGeometry(50, 1, 50),
+        new THREE.CubeGeometry(100, 1, 100),
         new THREE.MeshPhongMaterial({overdraw: true, color: 0x888888}),
         0
     );
     ground.receiveShadow = true;
     scene.add(ground);
 
-    blocks.forEach(createShape);
+    if ($("#application-editor").val())
+        runCode();
 
     requestAnimationFrame(render);
 };
 
 var createShape = function(e, i, a) {
     var box = new Physijs.BoxMesh(
-        new THREE.CubeGeometry(5, 5, 5),
-        new THREE.MeshPhongMaterial({overdraw: true, color: 0xFFF})
+        new THREE.CubeGeometry(3, 7, 1),
+        new THREE.MeshPhongMaterial({overdraw: true, color: 0xF7BE81})
     );
 
     box.position.set(e.pos.x, e.pos.y, e.pos.z);
@@ -95,6 +78,16 @@ var createShape = function(e, i, a) {
 
 var removeFromScene = function(e, i, a) {
     scene.remove(e);
+};
+
+var resetWorld = function() {
+    pshapes.forEach(removeFromScene);
+    pshapes = [];
+    blocks = [];
+};
+
+var toggleSidebar = function() {
+    $("#application-sidebar").sidebar("toggle");
 };
 
 var render = function() {
@@ -111,18 +104,17 @@ var resize = function() {
     controls.update();
 };
 
-$("#run-button").click(function() {
-    $("#application-sidebar").sidebar("toggle");
-});
+var runCode = function() {
+    toggleSidebar();
+    resetWorld();
 
-$("#sidebar-button").click(function(){
-    $("#application-sidebar").sidebar("toggle");
-});
+    eval($("#application-editor").val());
+    blocks.forEach(createShape);
+};
 
-$("#reset-button").click(function(){
-    pshapes.forEach(removeFromScene);
-});
+$("#run-button").click(runCode);
+$("#sidebar-button").click(toggleSidebar);
+$("#reset-button").click(resetWorld);
 
 window.onload = initScene();
-
 window.addEventListener("resize", resize, false);

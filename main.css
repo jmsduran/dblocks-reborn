@@ -1,9 +1,9 @@
-.main-body {
+body {
     margin: 0;
     overflow: hidden;
 }
 
-.application-editor {
+#application-editor {
     min-height: 40em !important;
     max-height: 75em !important;
 }
