@@ -1,7 +1,6 @@
 .main-body {
     margin: 0;
     overflow: hidden;
-    background-color: #FFFFFF;
 }
 
 .application-editor {
@@ -9,14 +8,14 @@
     max-height: 75em !important;
 }
 
-.sidebar-button {
+#sidebar-button {
     position: absolute;
     top:20px;
     left:20px;
     width: 130px;
 }
 
-.reset-button {
+#reset-button {
     position: absolute;
     top:70px;
     left:20px;
