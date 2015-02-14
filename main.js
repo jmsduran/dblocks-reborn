@@ -1,17 +1,72 @@
 'use strict';
 
 var DBLOCKS = (function() {
-    Physijs.scripts.worker = "/physijs/physijs_worker.js";
-    Physijs.scripts.ammo = "/ammojs/ammo.js";
+    /**
+     * World settings:
+     */
+    var settings = {
+        physijs: {
+            worker: "/physijs/physijs_worker.js",
+            ammo: "/ammojs/ammo.js"
+        },
+
+        shapes: {
+            block: {
+                xlen: 3,
+                ylen: 7,
+                zlen: 1,
+                color: 0xF7BE81
+            }
+        },
+
+        world: {
+            color: 0xFFFFFF,
+            gravity: new THREE.Vector3(0, -30, 0),
+            ground: {
+                color: 0x888888,
+                xlen: 100,
+                ylen: 1,
+                zlen: 100
+            }
+        },
+
+        light: {
+            color: 0xFFFFFF,
+            pos: {
+                x: 20,
+                y: 40,
+                z: -15
+            }
+        },
+
+        camera: {
+            pos: {
+                x: 60,
+                y: 50,
+                z: 60
+            }
+        }
+    };
+
+    /**
+     * Private logic:
+     */
+
+    Physijs.scripts.worker = settings.physijs.worker;
+    Physijs.scripts.ammo = settings.physijs.ammo;
 
     var renderer, scene, camera, controls;
 
     var createShape = function(e, i, a) {
         var box = new Physijs.BoxMesh(
-            new THREE.CubeGeometry(3, 7, 1),
+            new THREE.CubeGeometry(
+                settings.shapes.block.xlen,
+                settings.shapes.block.ylen,
+                settings.shapes.block.zlen
+            ),
             new THREE.MeshPhongMaterial({
                 overdraw: true,
-                color: 0xF7BE81
+                color: settings.shapes.block.color
             })
         );
 
@@ -34,23 +89,28 @@ var DBLOCKS = (function() {
         requestAnimationFrame(render);
     };
 
+    /**
+     * Public members:
+     */
     return {
         blocks: [],
 
         pshapes: [],
+
+        settings: settings,
 
         start: function() {
             renderer = new THREE.WebGLRenderer({
                 antialias: true
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setClearColor(0xFFFFFF, 1);
+            renderer.setClearColor(settings.world.color, 1);
             renderer.shadowMapEnabled = true;
             renderer.shadowMapSoft = true;
             document.getElementById("viewport").appendChild(renderer.domElement);
 
             scene = new Physijs.Scene;
-            scene.setGravity(new THREE.Vector3(0, -30, 0));
+            scene.setGravity(settings.world.gravity);
 
             camera = new THREE.PerspectiveCamera(
                 35,
@@ -59,12 +119,20 @@ var DBLOCKS = (function() {
                 1000
             );
 
-            camera.position.set(60, 50, 60);
+            camera.position.set(
+                settings.camera.pos.x,
+                settings.camera.pos.y,
+                settings.camera.pos.z
+            );
             camera.lookAt(scene.position);
             scene.add(camera);
 
-            var light = new THREE.DirectionalLight(0xFFFFFF);
-            light.position.set(20, 40, -15);
+            var light = new THREE.DirectionalLight(settings.light.color);
+            light.position.set(
+                settings.light.pos.x,
+                settings.light.pos.y,
+                settings.light.pos.z
+            );
             light.target.position.copy(scene.position);
             light.castShadow = true;
             light.shadowCameraLeft = -60;
@@ -81,10 +149,14 @@ var DBLOCKS = (function() {
             controls = new THREE.OrbitControls(camera, renderer.domElement);
 
             var ground = new Physijs.BoxMesh(
-                new THREE.CubeGeometry(100, 1, 100),
+                new THREE.CubeGeometry(
+                    settings.world.ground.xlen,
+                    settings.world.ground.ylen,
+                    settings.world.ground.zlen
+                ),
                 new THREE.MeshPhongMaterial({
                     overdraw: true,
-                    color: 0x888888
+                    color: settings.world.ground.color
                 }),
                 0
             );
