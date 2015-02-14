@@ -5,6 +5,12 @@ var DBLOCKS = (function() {
      * World settings:
      */
     var settings = {
+        html: {
+            elementId: "viewport",
+            width: window.innerWidth,
+            height: window.innerHeight
+        },
+
         physijs: {
             worker: "/physijs/physijs_worker.js",
             ammo: "/ammojs/ammo.js"
@@ -22,6 +28,7 @@ var DBLOCKS = (function() {
         world: {
             color: 0xFFFFFF,
             gravity: new THREE.Vector3(0, -30, 0),
+
             ground: {
                 color: 0x888888,
                 xlen: 100,
@@ -32,19 +39,37 @@ var DBLOCKS = (function() {
 
         light: {
             color: 0xFFFFFF,
+
             pos: {
                 x: 20,
                 y: 40,
                 z: -15
-            }
+            },
+
+            castShadow: true,
+            shadowCameraLeft: -60,
+            shadowCameraTop: -60,
+            shadowCameraRight: 60,
+            shadowCameraBottom: 60,
+            shadowCameraNear: 20,
+            shadowCameraFar: 200,
+            shadowBias: -.0001,
+            shadowMapWidthHeight: 2048,
+            shadowDarkness: .7
         },
 
         camera: {
+            fov: 35,
+
             pos: {
                 x: 60,
                 y: 50,
                 z: 60
-            }
+            },
+
+            near: 1,
+            far: 1000,
+            aspectRatio: window.innerWidth / window.innerHeight
         }
     };
 
@@ -100,23 +125,32 @@ var DBLOCKS = (function() {
         settings: settings,
 
         start: function() {
+            // Initialize the renderer:
             renderer = new THREE.WebGLRenderer({
                 antialias: true
             });
-            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            renderer.setSize(
+                settings.html.width,
+                settings.html.height
+            );
+
             renderer.setClearColor(settings.world.color, 1);
             renderer.shadowMapEnabled = true;
             renderer.shadowMapSoft = true;
-            document.getElementById("viewport").appendChild(renderer.domElement);
+
+            document.getElementById(settings.html.elementId)
+                .appendChild(renderer.domElement);
 
             scene = new Physijs.Scene;
             scene.setGravity(settings.world.gravity);
 
+            // Initialize the camera:
             camera = new THREE.PerspectiveCamera(
-                35,
-                window.innerWidth / window.innerHeight,
-                1,
-                1000
+                settings.camera.fov,
+                settings.camera.aspectRatio,
+                settings.camera.near,
+                settings.camera.far
             );
 
             camera.position.set(
@@ -124,30 +158,36 @@ var DBLOCKS = (function() {
                 settings.camera.pos.y,
                 settings.camera.pos.z
             );
+
             camera.lookAt(scene.position);
             scene.add(camera);
 
+            // Initialize the world light source:
             var light = new THREE.DirectionalLight(settings.light.color);
+
             light.position.set(
                 settings.light.pos.x,
                 settings.light.pos.y,
                 settings.light.pos.z
             );
+
             light.target.position.copy(scene.position);
-            light.castShadow = true;
-            light.shadowCameraLeft = -60;
-            light.shadowCameraTop = -60;
-            light.shadowCameraRight = 60;
-            light.shadowCameraBottom = 60;
-            light.shadowCameraNear = 20;
-            light.shadowCameraFar = 200;
-            light.shadowBias = -.0001;
-            light.shadowMapWidth = light.shadowMapHeight = 2048;
-            light.shadowDarkness = .7;
+            light.castShadow = settings.light.castShadow;
+            light.shadowCameraLeft = settings.light.shadowCameraLeft;
+            light.shadowCameraTop = settings.light.shadowCameraTop;
+            light.shadowCameraRight = settings.light.shadowCameraRight;
+            light.shadowCameraBottom = settings.light.shadowCameraBottom;
+            light.shadowCameraNear = settings.light.shadowCameraNear;
+            light.shadowCameraFar = settings.light.shadowCameraFar;
+            light.shadowBias = settings.light.shadowBias;
+            light.shadowMapWidth = light.shadowMapHeight = settings.light.shadowMapWidthHeight;
+            light.shadowDarkness = settings.light.shadowDarkness;
             scene.add(light);
 
+            // Use the provided OrbitControls utility for world navigation:
             controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+            // Initialize the ground object:
             var ground = new Physijs.BoxMesh(
                 new THREE.CubeGeometry(
                     settings.world.ground.xlen,
@@ -160,9 +200,11 @@ var DBLOCKS = (function() {
                 }),
                 0
             );
+
             ground.receiveShadow = true;
             scene.add(ground);
 
+            // Execute any initial code present within the textbox:
             if ($("#application-editor").val())
                 DBLOCKS.runCodeHandler();
 
