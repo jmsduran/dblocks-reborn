@@ -1,5 +1,9 @@
 'use strict';
 
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/textmate");
+editor.getSession().setMode("ace/mode/javascript");
+
 var DBLOCKS = (function() {
     /**
      * World settings:
@@ -205,7 +209,7 @@ var DBLOCKS = (function() {
             scene.add(ground);
 
             // Execute any initial code present within the textbox:
-            if ($("#application-editor").val())
+            if (editor.getSession().getValue())
                 DBLOCKS.runCodeHandler();
 
             requestAnimationFrame(render);
@@ -233,7 +237,7 @@ var DBLOCKS = (function() {
             DBLOCKS.toggleSidebarHandler();
             DBLOCKS.resetWorldHandler();
 
-            eval($("#application-editor").val());
+            eval(editor.getSession().getValue());
             DBLOCKS.blocks.forEach(createShape);
         }
     };

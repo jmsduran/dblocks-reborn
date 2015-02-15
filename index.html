@@ -19,18 +19,17 @@
                 <div class="ui inverted form">
                     <div class="field">
                         <label>Code Editor:</label>
-                        <textarea id="application-editor">
-                            DBLOCKS.blocks = [
-                                {
-                                    pos: {x: 0, y: 20, z: 0},
-                                    rot: {
-                                        x: Math.random() * Math.PI,
-                                        y: Math.random() * Math.PI,
-                                        z: Math.random() * Math.PI
-                                    }
-                                }
-                            ];
-                        </textarea>
+                        <pre id="editor">
+DBLOCKS.blocks = [
+    {
+        pos: {x: 0, y: 20, z: 0},
+        rot: {
+            x: Math.random() * Math.PI,
+            y: Math.random() * Math.PI,
+            z: Math.random() * Math.PI
+        }
+    }
+];</pre>
                     </div>
                     <div id="run-button" class="ui inverted blue button">Run</div>
                 </div>
@@ -39,6 +38,7 @@
         <div id="sidebar-button" class="ui inverted blue button">Toggle Editor</div>
         <div id="reset-button" class="ui inverted red button">Reset World</div>
         <div id="viewport"></div>
+        <script type="text/javascript" src="ace-editor/ace.js"></script>
         <script type="text/javascript" src="main.js"></script>
     </body>
 </html>
