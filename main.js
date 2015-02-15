@@ -1,8 +1,19 @@
-'use strict';
+/**
+ * dblocks
+ * Copyright (C) 2015  James Marcos Duran
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
 
-var editor = ace.edit("editor");
-editor.setTheme("ace/theme/textmate");
-editor.getSession().setMode("ace/mode/javascript");
+'use strict';
 
 var DBLOCKS = (function() {
     /**
@@ -13,6 +24,16 @@ var DBLOCKS = (function() {
             elementId: "viewport",
             width: window.innerWidth,
             height: window.innerHeight
+        },
+
+        editor: {
+            elementId: "editor",
+            theme: "ace/theme/textmate",
+            mode: "ace/mode/javascript"
+        },
+
+        sidebar: {
+            elementId: "#application-sidebar"
         },
 
         physijs: {
@@ -230,7 +251,7 @@ var DBLOCKS = (function() {
         },
 
         toggleSidebarHandler: function() {
-            $("#application-sidebar").sidebar("toggle");
+            $(DBLOCKS.settings.sidebar.elementId).sidebar("toggle");
         },
 
         runCodeHandler: function() {
@@ -242,6 +263,10 @@ var DBLOCKS = (function() {
         }
     };
 })();
+
+var editor = ace.edit(DBLOCKS.settings.editor.elementId);
+editor.setTheme(DBLOCKS.settings.editor.theme);
+editor.getSession().setMode(DBLOCKS.settings.editor.mode);
 
 $("#run-button").click(DBLOCKS.runCodeHandler);
 $("#sidebar-button").click(DBLOCKS.toggleSidebarHandler);
