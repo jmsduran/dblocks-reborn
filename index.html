@@ -35,31 +35,26 @@
  * Have fun playing with dblocks!
  */
 (function() {
-    for (var i = 1; i <= 10; i++) {
-        var block = {
-            pos: {x: i * 3.5, y: 3.5, z: 0},
-            rot: {x: 0, y: 0, z: 0}
-        };
+    for (var i = 1; i <= 8; i++) {
+        for (var j = 1; j < 8; j++) {
+            var block = {
+                pos: {x: i * 3.5, y: 4, z: j * 7},
+                rot: {x: 0, y: 0, z: 0}
+            };
 
-        DBLOCKS.blocks.push(block);
+            DBLOCKS.blocks.push(block);
+        }
     }
 
-    for (var i = 1; i <= 4; i++) {
-        var block = {
-            pos: {x: i * 8, y: 8.5, z: 0},
-            rot: {x: 0, y: 0, z: Math.PI / 2}
-        };
+    for (var i = 1; i <= 8; i++) {
+        for (var j = 1; j < 8; j++) {
+            var block = {
+                pos: {x: i * 3.5, y: 8, z: j * 7},
+                rot: {x: Math.PI / 2, y: 0, z: 0}
+            };
 
-        DBLOCKS.blocks.push(block);
-    }
-
-    for (var i = 1; i <= 4; i++) {
-        var block = {
-            pos: {x: i * 8, y: 11.5, z: 0},
-            rot: {x: 0, y: Math.PI / 2, z: Math.PI / 2}
-        };
-
-        DBLOCKS.blocks.push(block);
+            DBLOCKS.blocks.push(block);
+        }
     }
 })();</pre>
                     </div>
