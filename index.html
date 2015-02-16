@@ -20,16 +20,48 @@
                     <div class="field">
                         <label>Code Editor:</label>
                         <pre id="editor">
-DBLOCKS.blocks = [
-    {
-        pos: {x: 0, y: 20, z: 0},
-        rot: {
-            x: Math.random() * Math.PI,
-            y: Math.random() * Math.PI,
-            z: Math.random() * Math.PI
-        }
+/**
+ * Blocks have the following dimensions:
+ *  x length: 3
+ *  y length: 7
+ *  z length: 1
+ *
+ * A block's position and rotation is calculated at
+ * its center: (1.5, 3.5, 0.5)
+ *
+ * Render blocks by adding them to the
+ * DBLOCKS.blocks array.
+ *
+ * Have fun playing with dblocks!
+ */
+(function() {
+    for (var i = 1; i <= 10; i++) {
+        var block = {
+            pos: {x: i * 3.5, y: 3.5, z: 0},
+            rot: {x: 0, y: 0, z: 0}
+        };
+
+        DBLOCKS.blocks.push(block);
     }
-];</pre>
+
+    for (var i = 1; i <= 4; i++) {
+        var block = {
+            pos: {x: i * 8, y: 8.5, z: 0},
+            rot: {x: 0, y: 0, z: Math.PI / 2}
+        };
+
+        DBLOCKS.blocks.push(block);
+    }
+
+    for (var i = 1; i <= 4; i++) {
+        var block = {
+            pos: {x: i * 8, y: 11.5, z: 0},
+            rot: {x: 0, y: Math.PI / 2, z: Math.PI / 2}
+        };
+
+        DBLOCKS.blocks.push(block);
+    }
+})();</pre>
                     </div>
                     <div id="run-button" class="ui inverted blue button">Run</div>
                 </div>
