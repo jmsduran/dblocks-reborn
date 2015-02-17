@@ -99,6 +99,25 @@ var DBLOCKS = (function() {
     };
 
     /**
+     * Source:
+     * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+     *
+     * shim layer with setTimeout fallback
+     */
+    window['requestAnimFrame'] = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function( /* function */ callback,
+                /* DOMElement */
+                element) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    /**
      * Private logic:
      */
 
@@ -136,7 +155,7 @@ var DBLOCKS = (function() {
     var render = function() {
         scene.simulate();
         renderer.render(scene, camera);
-        requestAnimationFrame(render);
+        requestAnimFrame(render);
     };
 
     /**
@@ -233,7 +252,7 @@ var DBLOCKS = (function() {
             if (editor.getSession().getValue())
                 DBLOCKS.runCodeHandler();
 
-            requestAnimationFrame(render);
+            requestAnimFrame(render);
         },
 
         resizeHandler: function() {
