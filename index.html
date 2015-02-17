@@ -35,27 +35,34 @@
  * Have fun playing with dblocks!
  */
 (function() {
-    for (var i = 1; i <= 8; i++) {
-        for (var j = 1; j < 8; j++) {
+    var buildLevel = function(i, o) {
+        var yrot = (i % 2 === 0) ?  Math.PI / 2 : 0;
+
+        for (var j = 1; j <= 3; j++) {
+            var xpos = (yrot !== 0) ? (j + .4) * 3 : 7;
+            var zpos = (xpos === 7) ? j * 3 : 6;
+
+            xpos += o;
+            zpos += o;
+
             var block = {
-                pos: {x: i * 3.5, y: 4, z: j * 7},
-                rot: {x: 0, y: 0, z: 0}
+                pos: {x: xpos, y: i * 3, z: zpos},
+                rot: {x: 0, y: yrot, z: Math.PI / 2}
             };
 
             DBLOCKS.blocks.push(block);
         }
-    }
+    };
 
-    for (var i = 1; i <= 8; i++) {
-        for (var j = 1; j < 8; j++) {
-            var block = {
-                pos: {x: i * 3.5, y: 8, z: j * 7},
-                rot: {x: Math.PI / 2, y: 0, z: 0}
-            };
-
-            DBLOCKS.blocks.push(block);
+    var buildTower = function(o) {
+        for (var i = 1; i <= 12; i++) {
+            buildLevel(i, o);
         }
-    }
+    };
+
+    buildTower(0);
+    buildTower(8);
+    buildTower(16);
 })();</pre>
                     </div>
                     <div id="run-button" class="ui inverted blue button">Run</div>
