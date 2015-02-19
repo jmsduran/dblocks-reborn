@@ -1,5 +1,7 @@
 # dblocks-reborn
-A new, updated version of my original dblocks project, built on Node.js.
+An HTML5 KEVA plank simulator that allows you to create 3D structures via JavaScript. Now updated to run on Node.js.
+
+![Sample](https://raw.githubusercontent.com/jmsduran/dblocks-reborn/master/img/sample.png)
 
 Running
 ----
@@ -22,6 +24,7 @@ Dependencies
 * [Semantic UI](http://semantic-ui.com/)
 * [jQuery](http://jquery.com/)
 * [http-server](https://www.npmjs.com/package/http-server)
+* [Ace Editor](http://ace.c9.io/)
 
 License
 ----
