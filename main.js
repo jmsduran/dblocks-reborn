@@ -59,7 +59,9 @@ var DBLOCKS = (function() {
                 xlen: 100,
                 ylen: 1,
                 zlen: 100
-            }
+            },
+
+            timeout: 170
         },
 
         light: {
@@ -145,7 +147,10 @@ var DBLOCKS = (function() {
         box.receiveShadow = true;
 
         DBLOCKS.pshapes[i] = box;
-        scene.add(DBLOCKS.pshapes[i]);
+
+        setTimeout(function() {
+            scene.add(DBLOCKS.pshapes[i]);
+        }, i * settings.world.timeout);
     };
 
     var removeFromScene = function(e, i, a) {
