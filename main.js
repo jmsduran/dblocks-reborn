@@ -53,7 +53,7 @@ var DBLOCKS = (function() {
                 radius: 2,
                 widthsegments: 15,
                 heightsegments: 15,
-                color: 0xA9E4EB
+                color: 0xFF5F68
             }
         },
 
