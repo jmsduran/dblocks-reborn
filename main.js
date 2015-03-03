@@ -47,7 +47,18 @@ var DBLOCKS = (function() {
                 ylen: 7,
                 zlen: 1,
                 color: 0xF7BE81
+            },
+
+            sphere: {
+                radius: 2,
+                widthsegments: 15,
+                heightsegments: 15,
+                color: 0xA9E4EB
             }
+        },
+
+        projectile: {
+            velocity: 250
         },
 
         world: {
@@ -56,12 +67,12 @@ var DBLOCKS = (function() {
 
             ground: {
                 color: 0x888888,
-                xlen: 100,
+                xlen: 200,
                 ylen: 1,
-                zlen: 100
+                zlen: 200
             },
 
-            timeout: 170
+            timeout: 0
         },
 
         light: {
@@ -278,6 +289,37 @@ var DBLOCKS = (function() {
             $(DBLOCKS.settings.sidebar.elementId).sidebar("toggle");
         },
 
+        throwBallHandler: function() {
+            var ball = new Physijs.SphereMesh(
+                new THREE.SphereGeometry(
+                    settings.shapes.sphere.radius,
+                    settings.shapes.sphere.widthsegments,
+                    settings.shapes.sphere.heightsegments
+                ),
+                new THREE.MeshPhongMaterial({
+                    overdraw: true,
+                    color: settings.shapes.sphere.color
+                })
+            );
+
+            ball.position.set(
+                camera.position.x,
+                camera.position.y,
+                camera.position.z
+            );
+
+            ball.castShadow = true;
+            ball.receiveShadow = true;
+
+            var force = new THREE.Vector3(0, 0, -1);
+            force.applyQuaternion(camera.quaternion);
+            force.multiplyScalar(settings.projectile.velocity);
+
+            DBLOCKS.pshapes.push(ball);
+            scene.add(DBLOCKS.pshapes[DBLOCKS.pshapes.length - 1]);
+            DBLOCKS.pshapes[DBLOCKS.pshapes.length - 1].setLinearVelocity(force);
+        },
+
         runCodeHandler: function() {
             DBLOCKS.toggleSidebarHandler();
             DBLOCKS.resetWorldHandler();
@@ -295,6 +337,12 @@ editor.getSession().setMode(DBLOCKS.settings.editor.mode);
 $("#run-button").click(DBLOCKS.runCodeHandler);
 $("#sidebar-button").click(DBLOCKS.toggleSidebarHandler);
 $("#reset-button").click(DBLOCKS.resetWorldHandler);
+
+$(document).click(function(e) {
+    if (e.shiftKey) {
+        DBLOCKS.throwBallHandler();
+    }
+});
 
 window.onload = DBLOCKS.start();
 window.addEventListener("resize", DBLOCKS.resizeHandler, false);
