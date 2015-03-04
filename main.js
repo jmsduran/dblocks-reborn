@@ -51,8 +51,8 @@ var DBLOCKS = (function() {
 
             sphere: {
                 radius: 2,
-                widthsegments: 15,
-                heightsegments: 15,
+                widthsegments: 32,
+                heightsegments: 32,
                 color: 0xFF5F68
             }
         },

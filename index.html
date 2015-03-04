@@ -34,36 +34,32 @@
  *
  * Have fun playing with dblocks!
  */
-(function() {
-    var buildLevel = function(i, o) {
-        var yrot = (i % 2 === 0) ?  Math.PI / 2 : 0;
 
-        for (var j = 1; j <= 3; j++) {
-            var xpos = (yrot !== 0) ? (j + .4) * 3 : 7;
-            var zpos = (xpos === 7) ? j * 3 : 6;
+// Change game settings via the settings object:
+DBLOCKS.settings.world.timeout = 150;
 
-            xpos += o;
-            zpos += o;
+var level = function(x, y, z, r) {
+    var yrot = (r) ? Math.PI / 2 : 0;
 
-            var block = {
-                pos: {x: xpos, y: i * 3, z: zpos},
-                rot: {x: 0, y: yrot, z: Math.PI / 2}
-            };
+    for (var j = 1, k = 1; j <= 3; j++, k *= -1) {
+        var xp = (r && j > 1) ? 2.8 * k : 0;
+        var zp = (!r && j > 1) ? 2.8 * k : 0;
 
-            DBLOCKS.blocks.push(block);
-        }
-    };
+        var block = {
+            pos: {x: x + xp, y: y * 1.4, z: z + zp},
+            rot: {x: 0, y: yrot, z: Math.PI / 2}
+        };
 
-    var buildTower = function(o) {
-        for (var i = 1; i <= 12; i++) {
-            buildLevel(i, o);
-        }
-    };
+        DBLOCKS.blocks.push(block);
+    }
+};
 
-    buildTower(0);
-    buildTower(8);
-    buildTower(16);
-})();</pre>
+var tower = function(x, y, z) {
+    for (var i = 1, rot = 1; i <= 20; i += 2)
+        level(x, y + i, z, (rot = !rot));
+};
+
+tower(0, 1.5, 0);</pre>
                     </div>
                     <div id="run-button" class="ui inverted blue button">Run</div>
                 </div>
