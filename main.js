@@ -72,6 +72,15 @@ var DBLOCKS = (function() {
                 zlen: 200
             },
 
+            meshnormal: {
+                enabled: false
+            },
+
+            wireframe: {
+                enabled: false,
+                color: "blue"
+            },
+
             timeout: 0
         },
 
@@ -139,23 +148,48 @@ var DBLOCKS = (function() {
 
     var renderer, scene, camera, controls;
 
+    var getMaterial = function(phongColor) {
+        var material = new THREE.MeshPhongMaterial({
+            overdraw: true,
+            color: phongColor
+        });
+
+        if (settings.world.meshnormal.enabled)
+            material = new THREE.MeshNormalMaterial();
+
+        if (settings.world.wireframe.enabled)
+            material = new THREE.MeshBasicMaterial({
+                wireframe: true,
+                color: settings.world.wireframe.color
+            });
+
+        return material;
+    };
+
     var createShape = function(e, i, a) {
+        var material = getMaterial(settings.shapes.block.color);
+
         var box = new Physijs.BoxMesh(
             new THREE.CubeGeometry(
                 settings.shapes.block.xlen,
                 settings.shapes.block.ylen,
                 settings.shapes.block.zlen
             ),
-            new THREE.MeshPhongMaterial({
-                overdraw: true,
-                color: settings.shapes.block.color
-            })
+            material
         );
 
         box.position.set(e.pos.x, e.pos.y, e.pos.z);
         box.rotation.set(e.rot.x, e.rot.y, e.rot.z);
-        box.castShadow = true;
-        box.receiveShadow = true;
+
+        if (settings.world.wireframe.enabled ||
+            settings.world.meshnormal.enabled) {
+            box.castShadow = false;
+            box.receiveShadow = false;
+
+        } else {
+            box.castShadow = true;
+            box.receiveShadow = true;
+        }
 
         DBLOCKS.pshapes[i] = box;
 
@@ -290,16 +324,15 @@ var DBLOCKS = (function() {
         },
 
         throwBallHandler: function() {
+            var material = getMaterial(settings.shapes.sphere.color);
+
             var ball = new Physijs.SphereMesh(
                 new THREE.SphereGeometry(
                     settings.shapes.sphere.radius,
                     settings.shapes.sphere.widthsegments,
                     settings.shapes.sphere.heightsegments
                 ),
-                new THREE.MeshPhongMaterial({
-                    overdraw: true,
-                    color: settings.shapes.sphere.color
-                })
+                material
             );
 
             ball.position.set(
@@ -308,8 +341,15 @@ var DBLOCKS = (function() {
                 camera.position.z
             );
 
-            ball.castShadow = true;
-            ball.receiveShadow = true;
+            if (settings.world.wireframe.enabled ||
+                settings.world.meshnormal.enabled) {
+                ball.castShadow = false;
+                ball.receiveShadow = false;
+
+            } else {
+                ball.castShadow = true;
+                ball.receiveShadow = true;
+            }
 
             var force = new THREE.Vector3(0, 0, -1);
             force.applyQuaternion(camera.quaternion);
