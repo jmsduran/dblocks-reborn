@@ -337,6 +337,7 @@ editor.getSession().setMode(DBLOCKS.settings.editor.mode);
 $("#run-button").click(DBLOCKS.runCodeHandler);
 $("#sidebar-button").click(DBLOCKS.toggleSidebarHandler);
 $("#reset-button").click(DBLOCKS.resetWorldHandler);
+$("#replay-button").click(DBLOCKS.runCodeHandler);
 
 $(document).click(function(e) {
     if (e.shiftKey) {

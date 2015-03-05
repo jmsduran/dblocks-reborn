@@ -21,6 +21,13 @@ body {
     width: 130px;
 }
 
+#replay-button {
+    position: absolute;
+    top: 120px;
+    left: 20px;
+    width: 130px;
+}
+
 #instructions {
     position: absolute;
     top: 30px;
