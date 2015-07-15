@@ -36,6 +36,10 @@ var DBLOCKS = (function() {
             elementId: "#application-sidebar"
         },
 
+        menu: {
+            elementId: "#menu-buttons"
+        },
+
         physijs: {
             worker: "/physijs/physijs_worker.js",
             ammo: "/ammojs/ammo.js"
@@ -320,7 +324,10 @@ var DBLOCKS = (function() {
         },
 
         toggleSidebarHandler: function() {
-            $(DBLOCKS.settings.sidebar.elementId).sidebar("toggle");
+            $(DBLOCKS.settings.sidebar.elementId).toggle();
+            $(DBLOCKS.settings.menu.elementId).toggle();
+
+            editor.resize();
         },
 
         throwBallHandler: function() {
@@ -362,6 +369,8 @@ var DBLOCKS = (function() {
 
         runCodeHandler: function() {
             DBLOCKS.toggleSidebarHandler();
+            $(DBLOCKS.settings.menu.elementId).show();
+
             DBLOCKS.resetWorldHandler();
 
             eval(editor.getSession().getValue());
