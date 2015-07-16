@@ -29,7 +29,8 @@ var DBLOCKS = (function() {
         editor: {
             elementId: "editor",
             theme: "ace/theme/textmate",
-            mode: "ace/mode/javascript"
+            mode: "ace/mode/javascript",
+            showPrintMargin: false
         },
 
         sidebar: {
@@ -327,6 +328,7 @@ var DBLOCKS = (function() {
             $(DBLOCKS.settings.sidebar.elementId).toggle();
             $(DBLOCKS.settings.menu.elementId).toggle();
 
+            editor.setShowPrintMargin(DBLOCKS.settings.editor.showPrintMargin);
             editor.resize();
         },
 
