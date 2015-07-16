@@ -12,7 +12,7 @@ body {
     opacity: 0.8;
 }
 
-#application-sidebar {
+#editor-modal {
     position: absolute;
     top: 0;
     left: 0;
@@ -30,7 +30,7 @@ body {
     width: 360px;
 }
 
-#sidebar-button {
+#editor-button {
     position: absolute;
     top:20px;
     left:20px;

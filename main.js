@@ -33,7 +33,7 @@ var DBLOCKS = (function() {
         },
 
         sidebar: {
-            elementId: "#application-sidebar"
+            elementId: "#editor-modal"
         },
 
         menu: {
@@ -375,6 +375,13 @@ var DBLOCKS = (function() {
 
             eval(editor.getSession().getValue());
             DBLOCKS.blocks.forEach(createShape);
+        },
+
+        replayCodeHandler: function() {
+            DBLOCKS.resetWorldHandler();
+
+            eval(editor.getSession().getValue());
+            DBLOCKS.blocks.forEach(createShape);
         }
     };
 })();
@@ -384,9 +391,10 @@ editor.setTheme(DBLOCKS.settings.editor.theme);
 editor.getSession().setMode(DBLOCKS.settings.editor.mode);
 
 $("#run-button").click(DBLOCKS.runCodeHandler);
-$("#sidebar-button").click(DBLOCKS.toggleSidebarHandler);
+$("#editor-button").click(DBLOCKS.toggleSidebarHandler);
+$("#hide-button").click(DBLOCKS.toggleSidebarHandler);
 $("#reset-button").click(DBLOCKS.resetWorldHandler);
-$("#replay-button").click(DBLOCKS.runCodeHandler);
+$("#replay-button").click(DBLOCKS.replayCodeHandler);
 
 $(document).click(function(e) {
     if (e.shiftKey) {
