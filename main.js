@@ -34,11 +34,11 @@ var DBLOCKS = (function() {
         },
 
         sidebar: {
-            elementId: "#editor-modal"
+            elementId: "editor-modal"
         },
 
         menu: {
-            elementId: "#menu-buttons"
+            elementId: "menu-buttons"
         },
 
         physijs: {
@@ -324,14 +324,6 @@ var DBLOCKS = (function() {
             DBLOCKS.blocks = [];
         },
 
-        toggleSidebarHandler: function() {
-            $(DBLOCKS.settings.sidebar.elementId).toggle();
-            $(DBLOCKS.settings.menu.elementId).toggle();
-
-            editor.setShowPrintMargin(DBLOCKS.settings.editor.showPrintMargin);
-            editor.resize();
-        },
-
         throwBallHandler: function() {
             var material = getMaterial(settings.shapes.sphere.color);
 
@@ -370,9 +362,6 @@ var DBLOCKS = (function() {
         },
 
         runCodeHandler: function() {
-            DBLOCKS.toggleSidebarHandler();
-            $(DBLOCKS.settings.menu.elementId).show();
-
             DBLOCKS.resetWorldHandler();
 
             eval(editor.getSession().getValue());
@@ -392,17 +381,43 @@ var editor = ace.edit(DBLOCKS.settings.editor.elementId);
 editor.setTheme(DBLOCKS.settings.editor.theme);
 editor.getSession().setMode(DBLOCKS.settings.editor.mode);
 
-$("#run-button").click(DBLOCKS.runCodeHandler);
-$("#editor-button").click(DBLOCKS.toggleSidebarHandler);
-$("#hide-button").click(DBLOCKS.toggleSidebarHandler);
-$("#reset-button").click(DBLOCKS.resetWorldHandler);
-$("#replay-button").click(DBLOCKS.replayCodeHandler);
+var setVisibility = function(cevs, mevs, pmrg) {
+    var settings = DBLOCKS.settings;
+    var ceditor = document.getElementById(settings.sidebar.elementId);
+    var menu = document.getElementById(settings.menu.elementId);
 
-$(document).click(function(e) {
+    ceditor.style.visibility = cevs;
+    menu.style.visibility = mevs;
+
+    editor.setShowPrintMargin(pmrg);
+    editor.resize();
+};
+
+document.getElementById("run-button").onclick = function() {
+    setVisibility("hidden", "visible", false);
+    DBLOCKS.runCodeHandler();
+};
+
+document.getElementById("editor-button").onclick = function() {
+    setVisibility("visible", "hidden", DBLOCKS.settings.editor.showPrintMargin);
+};
+
+document.getElementById("hide-button").onclick = function() {
+    setVisibility("hidden", "visible", false);
+};
+
+document.getElementById("reset-button").onclick = DBLOCKS.resetWorldHandler;
+document.getElementById("replay-button").onclick = DBLOCKS.replayCodeHandler;
+
+document.onclick = function(e) {
     if (e.shiftKey) {
         DBLOCKS.throwBallHandler();
     }
-});
+};
 
-window.onload = DBLOCKS.start();
+window.onload = function() {
+    setVisibility("hidden", "visible", false);
+    DBLOCKS.start();
+};
+
 window.addEventListener("resize", DBLOCKS.resizeHandler, false);
