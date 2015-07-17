@@ -5,9 +5,8 @@
         <script type="text/javascript" src="bower_components/threejs/build/three.min.js"></script>
         <script type="text/javascript" src="bower_components/three.js-controls/src/OrbitControls.js"></script>
         <script type="text/javascript" src="bower_components/physijs/physi.js"></script>
-
-        <link rel="stylesheet" href="main.css" type="text/css" />
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="main.css" type="text/css" />
     </head>
     <body>
         <div id="editor-modal">
@@ -56,10 +55,12 @@ tower(0, 1.5, 0);</pre>
             <div id="hide-button" class="btn btn-lg btn-primary">Hide Editor</div>
         </div>
         <div id="menu-buttons">
-            <div id="editor-button" class="btn btn-lg btn-success">Show Editor</div>
-            <div id="reset-button" class="btn btn-lg btn-danger">Clear Scene</div>
-            <div id="replay-button" class="btn btn-lg btn-primary">Replay</div>
-            <div id="instructions"><b>Shift + Left-Click: Throw a ball</b></div>
+            <div id="menu-div">
+                <div id="editor-button" class="btn btn-lg btn-success">Show Editor</div>
+                <div id="reset-button" class="btn btn-lg btn-danger">Clear Scene</div>
+                <div id="replay-button" class="btn btn-lg btn-primary">Replay Sceney</div>
+                <div id="instructions"><b>Shift + Left-Click: Throw a ball</b></div>
+            </div>
         </div>
         <div id="viewport"></div>
         <script type="text/javascript" src="ace-editor/ace.js"></script>

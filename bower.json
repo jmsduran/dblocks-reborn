@@ -1,7 +1,7 @@
 {
   "name": "dblocks-reborn",
   "dependencies": {
-    "bootstrap": "~3.3.5",
+    "bootstrap": "3.0.0",
     "physijs": "*",
     "threejs": "r70",
     "three.js-controls": "*"

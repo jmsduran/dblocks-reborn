@@ -27,30 +27,18 @@ body {
     position: absolute;
     top:0;
     left: 0;
-    width: 360px;
+    width: 100%;
+    background: transparent;
 }
 
-#editor-button {
-    position: absolute;
-    top:20px;
-    left:20px;
-}
-
-#reset-button {
-    position: absolute;
-    top:70px;
-    left:20px;
-}
-
-#replay-button {
-    position: absolute;
-    top: 120px;
-    left: 20px;
+#menu-div {
+    position: relative;
+    padding-left: 20px;
+    padding-top: 15px;
+    width: 100%;
+    background: transparent;
 }
 
 #instructions {
-    position: absolute;
-    top: 30px;
-    left: 165px;
-    color: #54C8FF;
+    padding-top: 10px;
 }
