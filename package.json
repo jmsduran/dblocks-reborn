@@ -4,13 +4,15 @@
     "description": "A new, updated version of my original dblocks project, built on Node.js.",
     "author": "James Marcos Duran",
     "scripts": {
-        "start": "http-server -a $IP -p $PORT"
+        "start": "http-server -a $IP -p $PORT",
+        "postinstall": "bower install"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/jmsduran/dblocks-reborn"
     },
     "dependencies": {
+        "bower": "^1.4.1",
         "http-server": "^0.6.1"
     },
     "license": "GPL v2.0"

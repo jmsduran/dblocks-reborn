@@ -1,0 +1,12 @@
+{
+  "name": "dblocks-reborn",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "physijs": "*",
+    "threejs": "r70",
+    "three.js-controls": "*"
+  },
+  "resolutions": {
+    "threejs": "r70"
+  }
+}

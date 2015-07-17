@@ -42,8 +42,8 @@ var DBLOCKS = (function() {
         },
 
         physijs: {
-            worker: "/physijs/physijs_worker.js",
-            ammo: "/ammojs/ammo.js"
+            worker: "/bower_components/physijs/physijs_worker.js",
+            ammo: "/bower_components/ammo.js/builds/ammo.js"
         },
 
         shapes: {
