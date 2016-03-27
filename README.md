@@ -1,19 +1,15 @@
 # dblocks-reborn
 An HTML5 KEVA plank simulator that allows you to create 3D structures via JavaScript. Now updated to run on Node.js.
 
+[Demo](https://dblocks.herokuapp.com)
+
 ![Sample](https://raw.githubusercontent.com/jmsduran/dblocks-reborn/master/img/sample2.png)
+
 
 Running
 ----
 
 To start, run `npm install` followed by `npm start`.
-
-(Note to self:)
-
-To access the page from the Cloud9 environment, try one of the following URLs:
-
-* https://dblocks-reborn-jmsduran.c9.io/
-* https://dblocks-reborn-jmsduran-1.c9.io/
 
 Dependencies
 ----
